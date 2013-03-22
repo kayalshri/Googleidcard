@@ -1,7 +1,7 @@
 <?php
 /*
-	@author	:	Giriraj Namachivayam	
-	@date 	:	Mar 21, 2013
+	@author		:	Giriraj Namachivayam	
+	@date 		:	Mar 21, 2013
 	@demourl	:	http://ngiriraj.com/socialMedia/googleplus_idcard/
 	@document	:	http://ngiriraj.com/work/
 	@license	: 	Free to use
@@ -11,7 +11,7 @@
 # Oauth Connect file
 /* 
 	FileName	:	socialmedia_oauth_connect.php
-	Support	:	oAuth 2.0
+	Support		:	oAuth 2.0
 	Provider(s)	:	'Google'
 				'Bitly'
 				'WordPress'
