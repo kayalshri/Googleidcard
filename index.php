@@ -159,7 +159,7 @@ if(empty($code)) {
 	# DELETE Profile image (due to space issue)
     	unlink($idDir.$gid.'.jpg');  
     
-	# GOOGLE Plus API is readonly; So, we can post automatic.
+	# GOOGLE Plus API is readonly; So, we can't post by automatic.
 	# Google ID card stored in different HTML file for sharing purpose
 	
 	# FILENAME
