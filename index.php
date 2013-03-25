@@ -32,7 +32,7 @@ include "socialmedia_oauth_connect.php";
 $idDir = 'gcards/'; 
 
 # Facebook standared id card image template
-$fbTemplate_img = 'gplus.png';
+$gplusTemplate_img = 'gplus.png';
 
 # Fonts - Download from http://www.google.com/webfonts
 $font ="fonts/Merri/MerriweatherSans-Regular.ttf";
