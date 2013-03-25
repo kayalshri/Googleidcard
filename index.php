@@ -1,11 +1,13 @@
 <?php
+#ini_set('display_errors',1); 
+#error_reporting(E_ALL);
 /*
 	@author		:	Giriraj Namachivayam	
 	@date 		:	Mar 21, 2013
 	@demourl	:	http://ngiriraj.com/socialMedia/googleplus_idcard/
 	@document	:	http://ngiriraj.com/work/
 	@license	: 	Free to use
-	@History	:	V1.0 - Google IDCard
+	@History	:	V1.0 - Released oauth 2.0 service providers login access
 */
 
 # Oauth Connect file
@@ -48,7 +50,7 @@ $oauth->provider="Google";
 $oauth->client_id = "730362277469-tbeqm6l332n1al4pnfdgb83786a6g3f2.apps.googleusercontent.com";
 
 # Google Secret Key
-$oauth->client_secret = "xxxxxxxxxxxxxxxxxxxxxxxx";
+$oauth->client_secret = "_SMTFXZxrLE59YNGletoa1qh";
 
 # Scope
 $oauth->scope="https://www.googleapis.com/auth/userinfo.email  https://www.googleapis.com/auth/userinfo.profile";
@@ -73,12 +75,17 @@ if(empty($code)) {
 	# Get User Profile
 	$user = json_decode($oauth->getUserProfile());
 	#$oauth->debugJson($user);
+	#exit();
 	
 	# Google+ user id
 	$gid = $user->id;
 	
-	# Profile Photo
+	# Profile 
 	$gp_user_profile= $user->link;
+	
+	# Photo
+    	$gp_user_photo     	= isset($user->picture) ? ($user->picture) : 'http://www.polymtl.ca/lm2/img/No_photo_000.jpg';
+    
 	
 	# Google User Name
     	$gp_user_name      	= isset($user->name) ? ($user->name) : 'No Name';
@@ -93,9 +100,8 @@ if(empty($code)) {
     	$gp_user_birth     	= isset($user->birthday) ? ($user->birthday) : '00/00/0000';
     
 	# Birthday d-M format
-    	$gp_birthdate = date($gp_user_birth);
-    	$sort_birthdate = strtotime($gp_birthdate);
-    	$for_birthdate = date('d M', $sort_birthdate);
+	list($year, $month, $day) =explode("-",$gp_user_birth);
+    	$for_birthdate = "$day/$month";
     
 	# Disclaimer msg
 	$gplus_disclaimer 	= '* Un-official Google+ ID card from http://ngiriraj.com';
@@ -119,7 +125,7 @@ if(empty($code)) {
 
 	#Download user profile image
 	#copy($gplusProfileImagefile,$gplusTemplatefile);
-	save_image($user->picture,$idDir.$gid.'.jpg');    
+	save_image($gp_user_photo,$idDir.$gid.'.jpg');    
 	
 	# gplus Template - PNG file format
 	$gplusTemplate = imagecreatefrompng($gplusTemplate_img); 
@@ -154,23 +160,28 @@ if(empty($code)) {
 	
         
 	# gplus ID Card save into idDir folder	
-    	imagepng($gplusTemplate, $idDir.'id_'.$gid.'.jpg');
+    	imagepng($gplusTemplate, $idDir.'Google-idcard-'.$gid.'.jpg') or die ("issue");
+	
+#	echo "<img src='".$idDir."id_".$gid.".jpg'>";
+	
+#	exit();
 	
 	# DELETE Profile image (due to space issue)
     	unlink($idDir.$gid.'.jpg');  
     
-	# GOOGLE Plus API is readonly; So, we can't post by automatic.
+	# GOOGLE Plus API is readonly; So, we can't post automatic.
 	# Google ID card stored in different HTML file for sharing purpose
 	
 	# FILENAME
     	$myFile = $idDir."Google-idcard-".$gid.".html";
 	$fh = fopen($myFile, 'w') or die("can't open file");
 	
+	
 	# Share Button - Google+, Facebook, Twitter, LinkedIn
-	$share = '<html><body bgcolor="#f2f2f2"><center><img src="id_'.$gid.'.jpg" /><BR><BR>';
+	$share = '<html><body bgcolor="#f2f2f2"><center><img src="Google-idcard-'.$gid.'.jpg" /><BR><BR>';
 	$share .= "Hurry up! Get your <a target='_blank' href='http://goo.gl/xFYlk'>Google+ IDcard</a> like ".$gp_user_name.".";
 	$share .= '<BR><BR><BR><BR><BR>
-	<div id="fb-root"></div>
+		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
 		  if (d.getElementById(id)) return;
@@ -180,7 +191,6 @@ if(empty($code)) {
 		}(document, "script", "facebook-jssdk"));</script>
 		
 		<div class="fb-like"  data-layout="button_count" data-width="450" data-show-faces="true" data-font="segoe ui" data-href="http://ngiriraj.com/socialMedia/googleplus_idcard/'.$myFile.'"></div>
-		
 		<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 		<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
 		<script type="IN/Share" data-counter="right" data-url="http://ngiriraj.com/socialMedia/googleplus_idcard/'.$myFile.'"></script>
