@@ -170,16 +170,17 @@ if(empty($code)) {
 	$share = '<html><body bgcolor="#f2f2f2"><center><img src="id_'.$gid.'.jpg" /><BR><BR>';
 	$share .= "Hurry up! Get your <a target='_blank' href='http://goo.gl/xFYlk'>Google+ IDcard</a> like ".$gp_user_name.".";
 	$share .= '<BR><BR><BR><BR><BR>
-		<div id="gplus-root"></div>
+	<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
 		  if (d.getElementById(id)) return;
 		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.Google.net/en_GB/all.js#xgplusml=1&appId=321176691239227";
+		  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=482962811753376";
 		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, "script", "Google-jssdk"));</script>
-
-		<div class="gplus-like"  data-layout="button_count" data-width="450" data-show-faces="true" data-font="segoe ui" data-href="http://ngiriraj.com/socialMedia/googleplus_idcard/'.$myFile.'"></div>
+		}(document, "script", "facebook-jssdk"));</script>
+		
+		<div class="fb-like"  data-layout="button_count" data-width="450" data-show-faces="true" data-font="segoe ui" data-href="http://ngiriraj.com/socialMedia/googleplus_idcard/'.$myFile.'"></div>
+		
 		<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 		<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
 		<script type="IN/Share" data-counter="right" data-url="http://ngiriraj.com/socialMedia/googleplus_idcard/'.$myFile.'"></script>
